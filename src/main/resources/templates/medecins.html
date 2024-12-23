@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Médecins</title>
+	<style>
+	        body {
+	            font-family: Georgia, Times, 'Times New Roman', serif;
+	            margin: 0;
+	            padding: 0;
+	            background-color: #f9f9f9;
+	        }
+
+	        header {
+	            background-color: #021024;
+	            color: white;
+	            padding: 1em 0;
+	            text-align: center;
+	        }
+
+	        nav {
+	            background-color: #5483b3;
+	            display: flex;
+	            justify-content: center;
+	            padding: 0.5em 0;
+	        }
+
+	        nav a {
+	            color: white;
+	            text-decoration: none;
+	            padding: 0.5em 1em;
+	            font-size: 1.1em;
+	        }
+
+	        nav a:hover {
+	            background-color: #021024;
+	            border-radius: 5px;
+	        }
+
+	        .container {
+	            max-width: 600px;
+	            margin: 2em auto;
+	            background: white;
+	            padding: 2em;
+	            border-radius: 8px;
+	            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	        }
+
+	        h1 {
+	            text-align: center;
+	            color: #000000;
+	        }
+
+	        table {
+				width: 100%;
+	            border-collapse: collapse;
+	            margin-top: 1em;
+	        }
+
+	        table, th, td {
+	            border: 1px solid #ccc;
+				text-align: center;  /* Centrer horizontalement le contenu */
+				vertical-align: middle;
+	        }
+
+	        th, td {
+	            padding: 0.8em;
+	            text-align: center;
+	        }
+
+	        th {
+	            background-color: #5483b3;
+	            color: white;
+	        }
+
+	        .btn {
+	            background-color: #5483b3;
+	            color: white;
+	            padding: 0.8em 1.5em;
+	            border: none;
+	            border-radius: 4px;
+	            font-size: 1em;
+	            text-decoration: none;
+	            display: inline-block;
+	            margin-top: 1em;
+	        }
+
+	        .btn:hover {
+	            background-color: #021024;
+	        }
+
+	        footer {
+	            background-color: #5483b3;
+	            color: white;
+	            text-align: center;
+	            font-size: small;
+	            position: fixed;
+	            bottom: 0;
+	            width: 100%;
+	        }
+	    </style></head>
+<body>
+	<nav>
+		    <a href="/patients">Gestion Patients</a>
+		    <a href="/rendezvous">Gestion RDV</a>
+		    <a href="/medecins">Gestion Médecins</a>
+			<a href="/consultations">Gestion Consultations</a>
+		</nav>
+    <h1>Liste des Médecins</h1>
+   
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Adresse</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="medecin : ${medecins}">
+                    <td th:text="${medecin.idmedecin}"></td>
+                    <td th:text="${medecin.nommedecin}"></td>
+                    <td th:text="${medecin.prenommedecin}"></td>
+                    <td th:text="${medecin.adr}"></td>
+                    <td th:text="${medecin.email}"></td>
+                    <td>
+                        <a th:href="@{/medecins/edit/{id}(id=${medecin.idmedecin})}" class="btn edit-btn">Modifier</a>
+                        <a th:href="@{/medecins/delete/{id}(id=${medecin.idmedecin})}"
+                          class="btn delete-btn"
+                           onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce médecin ?')">Supprimer</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="/medecins/add" class="btn">Ajouter un Médecin</a>
+        </div>
+    </div>
+    
+</body>
+</html>

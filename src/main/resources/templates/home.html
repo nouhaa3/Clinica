@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CLINICA</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Pour les graphiques, si nécessaire -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css"> <!-- Lien vers votre feuille de style partagée -->
+    <style>
+        body {
+            font-family: Georgia, Times, 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: #021024;
+        }
+
+		nav {
+		            background-color: #5483b3;
+		            display: flex;
+		            justify-content: center;
+		            padding: 0.5em 0;
+		        }
+
+		        nav a {
+		            color: white;
+		            text-decoration: none;
+		            padding: 0.5em 1em;
+		            font-size: 1.1em;
+		        }
+
+		        nav a:hover {
+		            background-color: #021024;
+		            border-radius: 5px;
+		        }
+        main {
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #5483b3;
+            font-family: Georgia, Times, 'Times New Roman', serif;
+        }
+        h2 {
+            color: rgb(0, 0, 160);
+            font-family: Georgia, Times, 'Times New Roman', serif;
+            text-align: center;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        footer {
+            text-align: center;
+            font-size: small;
+            background-color: #5483b3;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .about-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            gap: 20px;
+        }
+        .about-text {
+            flex: 1; /* Prend la moitié du conteneur */
+            max-width: 100%; 
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .services-container {
+            display: flex;
+            overflow-x: auto; /* Permet le défilement horizontal */
+            scroll-behavior: smooth; /* Effet de défilement fluide */
+            gap: 20px; /* Ajoute de l'espace entre les éléments */
+            padding: 10px; /* Ajoute de l'espace autour du conteneur */
+            border: 1px solid #ccc; /* Optionnel : Ajoute une bordure autour du conteneur */
+        }
+        .services-container::-webkit-scrollbar {
+            height: 8px; /* Ajuste la hauteur de la barre de défilement */
+        }
+        .services-container::-webkit-scrollbar-thumb {
+            background-color: #ffffff; /* Couleur du pouce de la barre de défilement */
+            border-radius: 10px; /* Arrondit le pouce de la barre de défilement */
+        }
+        .services-container::-webkit-scrollbar-track {
+            background-color: #ffffff; /* Fond de la piste de la barre de défilement */
+        }
+        h3 {
+            color: #007bff;
+        }
+        .service {
+            min-width: 300px; /* Assure que chaque service occupe une largeur raisonnable */
+            background-color: #f9f9f9; /* Fond pour la carte de service */
+            border-radius: 10px; /* Arrondit les coins */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajoute une ombre subtile */
+            padding: 15px;
+            text-align: center; /* Centre le texte à l'intérieur de la carte */
+        }
+        #testimonials {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+        }
+        #testimonials blockquote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #495057;
+            border-left: 5px solid #007bff;
+            padding-left: 15px;
+        }
+        #contact {
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 40px;
+            align-content: center;
+        }
+        .contact-info {
+            display: flex;
+            gap: 20px; /* Espace entre les éléments */
+            flex-wrap: wrap; /* Permet de passer à la ligne sur les petits écrans */
+        }
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Espace entre l'icône et le texte */
+            font-size: 1rem;
+        }
+        .contact-info i {
+            color: #007bff; /* Couleur de l'icône */
+            font-size: 1.2rem; /* Ajuste la taille de l'icône */
+        }
+    </style>
+</head>
+<body>
+	<nav>
+			        <a href="/patients">Gestion des Patients</a>
+			        <a href="/rendezvous">Gestion des RDV</a>
+			        <a href="/medecins">Gestion des Médecins</a>
+					<a href="/specialites">Gestion des Spécialités</a>
+			        <a href="/consultations">Gestion des Consultations</a>
+			    </nav>
+
+    <main>
+        <h1>Bienvenue à CLINICA</h1>
+        <p style="text-align: center;">Nous sommes ravis de vous accueillir ici. Veuillez explorer le tableau de bord pour les informations des patients, les rendez-vous, et plus encore.</p>
+
+        <section id="about" class="about-container">
+            <div class="about-text">
+                <h2>À propos de nous</h2>
+                <p>
+                    CLINICA est une clinique moderne et innovante dédiée à fournir des soins de qualité à tous ses patients.
+                    Nous mettons un accent particulier sur le bien-être de chaque individu en offrant des soins personnalisés,
+                    des consultations spécialisées, et un environnement accueillant et professionnel.
+                    Notre équipe est composée de médecins, d'infirmiers et de personnel de santé qualifiés, engagés à améliorer votre santé à chaque étape.
+                </p>
+            </div>
+        </section>
+
+        <br><hr><br>
+        <h2>Nos Services</h2>
+        <section id="services" class="services-container">
+            <div class="service">
+                <h3>Consultations Médicales</h3>
+                <p>Consultations médicales générales et spécialisées avec des médecins expérimentés.</p>
+            </div>
+            <div class="service">
+                <h3>Services d'Urgence</h3>
+                <p>Assistance d'urgence 24h/24 et 7j/7 pour tous types de situations médicales.</p>
+            </div>
+            <div class="service">
+                <h3>Examens et Tests</h3>
+                <p>Tests médicaux modernes et examens diagnostiques pour une évaluation complète de la santé.</p>
+            </div>
+            <div class="service">
+                <h3>Services Pharmaceutiques</h3>
+                <p>Accès aux médicaments essentiels et conseils pharmaceutiques professionnels.</p>
+            </div>
+            <div class="service">
+                <h3>Bilans de Santé</h3>
+                <p>Forfaits de bilans de santé complets adaptés à vos besoins.</p>
+            </div>
+        </section>
+
+        <br><hr><br>
+        <h2>Témoignages de nos patients</h2>
+        <section id="testimonials">
+            <blockquote style="font-size: 16.5px;">
+                <p>"J'ai eu une expérience exceptionnelle à CLINICA. Le personnel est très attentionné et les soins étaient parfaits. Je recommande vivement !" - John Smith</p>
+            </blockquote>
+            <br>
+            <blockquote style="font-size: 16.5px;">
+                <p>"CLINICA a fourni un service exceptionnel lorsque j'avais besoin de soins urgents. Les médecins étaient professionnels et attentifs. Merci pour l'excellent service !" - Sarah Johnson</p>
+            </blockquote>
+            <br>
+            <blockquote style="font-size: 16.5px;">
+                <p>"Les installations modernes et le personnel sympathique de CLINICA ont rendu ma visite sans stress. Je suis vraiment impressionné par leur engagement envers la santé des patients !" - Michael Brown</p>
+            </blockquote>
+        </section>
+
+        <br><hr><br>
+		<section id="contact">
+		            <div class="contact-info">
+		                <span><i class="fas fa-map-marker-alt"></i> <strong>Adresse :</strong> 123 rue de la Santé, Paris, France</span>
+		                <span><i class="fas fa-phone-alt"></i> <strong>Téléphone :</strong> +33 1 23 45 67 89</span>
+		                <span><i class="fas fa-envelope"></i> <strong>Email :</strong> contact@clinica.fr</span>
+		                <span><i class="fas fa-clock"></i> <strong>Heures d'ouverture :</strong> Lundi - Vendredi : 8h00 - 18h00</span>
+		            </div>
+		        </section>
+		    </main>
+
+		    <footer>
+		        <p>&copy; 2024 CLINICA. Tous droits réservés.</p>
+		    </footer>
+		</body>
+		</html>

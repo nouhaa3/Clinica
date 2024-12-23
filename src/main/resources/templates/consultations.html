@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Consultations</title>
+    <style>
+        body {
+            font-family: Georgia, Times, 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        nav {
+            background-color: #5483b3;
+            display: flex;
+            justify-content: center;
+            padding: 0.5em 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            background-color: #021024;
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #000000;
+            margin-top: 2em;
+        }
+
+        table {
+            width: 80%;
+            margin: 2em auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 1em;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #5483b3;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .action-btn {
+            display: inline-block;
+            padding: 0.5em 1em;
+            margin: 0.2em;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .btn {
+            background-color: #5483b3;
+            color: white;
+            padding: 0.8em 1.5em;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #021024;
+        }
+
+        footer {
+            background-color: #5483b3;
+            color: white;
+            text-align: center;
+            font-size: small;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 0.5em 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/patients">Gestion Patients</a>
+        <a href="/rendezvous">Gestion RDV</a>
+        <a href="/medecins">Gestion Médecins</a>
+        <a href="/specialites">Gestion Spécialités</a>
+        <a href="/consultations">Gestion Consultations</a>
+    </nav>
+
+    <h1>Liste des Consultations</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Récapitulatif</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="consultation : ${consultations}">
+                <td th:text="${consultation.idcons}"></td>
+                <td th:text="${consultation.datecons}"></td>
+                <td th:text="${consultation.recapcons}"></td>
+                <td>
+                    <a th:href="@{/consultations/edit/{id}(id=${consultation.idcons})}" class="btn edit-btn">Modifier</a>
+                    <a th:href="@{/consultations/delete/{id}(id=${consultation.idcons})}"
+                       class="btn delete-btn"
+                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette consultation ?')">Supprimer</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+        <a href="/consultations/add" class="btn">Ajouter une Consultation</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

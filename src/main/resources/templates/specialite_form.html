@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter une Spécialité</title>
+    <style>
+        body {
+            font-family: Georgia, Times, 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #021024;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #5483b3;
+            display: flex;
+            justify-content: center;
+            padding: 0.5em 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            background-color: #021024;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2em auto;
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #000000;
+        }
+
+        .form-group {
+            margin-bottom: 1.5em;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8em;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #5483b3;
+            color: white;
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 1em;
+        }
+
+        button:hover {
+            background-color: #021024;
+        }
+
+        footer {
+            background-color: #5483b3;
+            color: white;
+            text-align: center;
+            font-size: small;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/patients">Gestion Patients</a>
+        <a href="/rendezvous">Gestion RDV</a>
+        <a href="/medecins">Gestion Médecins</a>
+		<a href="/specialites">Gestion Spécialités</a>
+        <a href="/consultations">Gestion Consultations</a>
+    </nav>
+    <h1>Ajouter une Spécialité</h1>
+
+    <div class="container">
+        <form th:action="@{/specialites/add}" th:object="${specialite}" method="post">
+            <div class="form-group">
+                <label for="nomspecialite">Nom de la Spécialité:</label>
+                <input type="text" id="nomspecialite" th:field="*{nomspecialite}" required>
+            </div>
+            
+            <button type="submit" class="btn">Enregistrer</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

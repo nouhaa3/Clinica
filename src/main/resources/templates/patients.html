@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Patients</title>
+    <style>
+        body {
+            font-family: Georgia, Times, 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #021024;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #5483b3;
+            display: flex;
+            justify-content: center;
+            padding: 0.5em 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            background-color: #021024;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2em auto;
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #000000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th, td {
+            padding: 0.8em;
+            text-align: center;
+        }
+
+        th {
+            background-color: #5483b3;
+            color: white;
+        }
+
+        .btn {
+            background-color: #5483b3;
+            color: white;
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1em;
+        }
+
+        .btn:hover {
+            background-color: #021024;
+        }
+
+        .action-btn {
+            padding: 0.5em 1em;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 1em;
+            display: inline-block;
+            margin-top: 0.5em;
+        }
+
+
+        footer {
+            background-color: #5483b3;
+            color: white;
+            text-align: center;
+            font-size: small;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+	<nav>
+			        <a href="/patients">Gestion Patients</a>
+			        <a href="/rendezvous">Gestion RDV</a>
+			        <a href="/medecins">Gestion Médecins</a>
+					<a href="/specialites">Gestion Spécialités</a>
+			        <a href="/consultations">Gestion Consultations</a>
+			    </nav>
+        <h1>Liste des Patients</h1>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Adresse</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="patient : ${patients}">
+                    <td th:text="${patient.idpatient}"></td>
+                    <td th:text="${patient.nompatient}"></td>
+                    <td th:text="${patient.prenompatient}"></td>
+                    <td th:text="${patient.emailpatient}"></td>
+                    <td th:text="${patient.adrpatient}"></td>
+                    <td>
+                        <!-- Edit Button with Correct URL -->
+                        <a th:href="@{/patients/edit/{id}(id=${patient.idpatient})}" class="btn edit-btn">
+                            Modifier
+                        </a>
+
+                        <!-- Delete Button with Confirmation -->
+                        <a th:href="@{/patients/delete/{id}(id=${patient.idpatient})}"
+                           class="btn delete-btn"
+                           onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce patient ?')">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="/patients/add" class="btn">Ajouter un Patient</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
